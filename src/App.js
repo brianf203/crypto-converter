@@ -13,8 +13,8 @@ function App() {
   const [toPrice, setToPrice] = useState()
   const [amount, setAmount] = useState(1)
   const [amountInFromCurrency, setAmountInFromCurrency] = useState(true)
-  const tickers = ["BTC", "ETH", "BNB", "DOGE"]
-  
+  const tickers = ["ADA", "BNB", "BTC", "DOGE", "DOT", "ETH", "SHIB", "SOL", "USDC", "USDT", "XRP"]
+
   let toAmount, fromAmount
   if (amountInFromCurrency) {
     fromAmount = amount
@@ -34,24 +34,20 @@ function App() {
 
   useEffect(() => {
     if (fromCurrency != null && toCurrency != null) {
-
-      console.log("FROM CURRENCY: " + fromCurrency)
-      console.log("TO CURRENCY: " + toCurrency)
-
-      axios.get("https://rest.coinapi.io/v1/exchangerate/" + fromCurrency + "/USD", { headers: {"X-CoinAPI-Key": "D53E1FC5-E2E7-4126-A3E7-98BB55B8D634"} })
+      axios.get("https://rest.coinapi.io/v1/exchangerate/" + fromCurrency + "/USD", { headers: {"X-CoinAPI-Key": "183A07E3-D092-4040-917E-E6267A8C0341"} })
         .then(function(resp) {
           setFromPrice(resp.data.rate)
-          console.log(fromCurrency + " price: " + fromPrice + "")
       });
-      axios.get("https://rest.coinapi.io/v1/exchangerate/" + toCurrency + "/USD", { headers: {"X-CoinAPI-Key": "D53E1FC5-E2E7-4126-A3E7-98BB55B8D634"} })
+      axios.get("https://rest.coinapi.io/v1/exchangerate/" + toCurrency + "/USD", { headers: {"X-CoinAPI-Key": "183A07E3-D092-4040-917E-E6267A8C0341"} })
         .then(function(resp) {
           setToPrice(resp.data.rate)
-          console.log(toCurrency + " price: " + toPrice + "")
       });
-
-      setExchangeRate(fromPrice / toPrice)
     }
   }, [fromCurrency, toCurrency])
+
+  useEffect(() => {
+    setExchangeRate(fromPrice / toPrice)
+  }, [toPrice, fromPrice])
 
   function handFromAmountChange(e) {
     setAmount(e.target.value)
