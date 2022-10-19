@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './App.css';
 import CurrencyRow from './CurrencyRow';
+import SelectRow from './SelectRow';
 
 var axios = require("axios");
 
@@ -34,14 +35,14 @@ function App() {
 
   useEffect(() => {
     if (fromCurrency != null && toCurrency != null) {
-      axios.get("https://rest.coinapi.io/v1/exchangerate/" + fromCurrency + "/USD", { headers: {"X-CoinAPI-Key": "183A07E3-D092-4040-917E-E6267A8C0341"} })
-        .then(function(resp) {
+      axios.get("https://rest.coinapi.io/v1/exchangerate/" + fromCurrency + "/USD", { headers: { "X-CoinAPI-Key": "183A07E3-D092-4040-917E-E6267A8C0341" } })
+        .then(function (resp) {
           setFromPrice(resp.data.rate)
-      });
-      axios.get("https://rest.coinapi.io/v1/exchangerate/" + toCurrency + "/USD", { headers: {"X-CoinAPI-Key": "183A07E3-D092-4040-917E-E6267A8C0341"} })
-        .then(function(resp) {
+        });
+      axios.get("https://rest.coinapi.io/v1/exchangerate/" + toCurrency + "/USD", { headers: { "X-CoinAPI-Key": "183A07E3-D092-4040-917E-E6267A8C0341" } })
+        .then(function (resp) {
           setToPrice(resp.data.rate)
-      });
+        });
     }
   }, [fromCurrency, toCurrency])
 
@@ -61,22 +62,43 @@ function App() {
 
   return (
     <>
-      <h1>Convert</h1>
-      <CurrencyRow 
-        tickers={tickers}
-        selectedCurrency={fromCurrency}
-        onChangeCurrency={e => setFromCurrency(e.target.value)}
-        onChangeAmount={handFromAmountChange}
-        amount={fromAmount}
-      />
-      <div className="equals">=</div>
-      <CurrencyRow 
-        tickers={tickers}
-        selectedCurrency={toCurrency}
-        onChangeCurrency={e => setToCurrency(e.target.value)}
-        onChangeAmount={handToAmountChange}
-        amount={toAmount}
-      />
+      <div style={{
+        backgroundColor: "#d1d1d1",
+        width: '320px',
+        height: '210px',
+        alignSelf: "center",
+        justifycontent: "center",
+        alignitems: "center",
+        textalign: "center",
+        display: "flex"
+      }}>
+        <div style={{
+          backgroundColor: "#e0e0e0",
+          width: '300px',
+          height: '190px',
+          alignSelf: "center",
+          justifycontent: "center",
+          alignitems: "center",
+          textalign: "center",
+          marginLeft: ".6rem"
+        }}>
+          <div className="equals"></div>
+          <h1>Cryptocurrency Converter </h1>
+          <CurrencyRow
+            onChangeAmountFrom={handFromAmountChange}
+            onChangeAmountTo={handToAmountChange}
+            amountFrom={fromAmount}
+            amountTo={toAmount}
+          />
+          <SelectRow
+            tickers={tickers}
+            selectedCurrencyFrom={fromCurrency}
+            selectedCurrencyTo={toCurrency}
+            onChangeCurrencyFrom={e => setFromCurrency(e.target.value)}
+            onChangeCurrencyTo={e => setToCurrency(e.target.value)}
+          />
+        </div>
+      </div>
     </>
   );
 }
