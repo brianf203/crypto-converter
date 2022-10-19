@@ -8,11 +8,16 @@ body {
 }
 
 h1 {
+  margin-top: 10em;
   margin: 0;
   margin-bottom: .5rem;
 }
 
 .input {
+  margin-top: .6rem;
+  margin-left: .75rem;
+  margin-right: .75rem;
+  display: inline-block;
   border: 1px solid #333;
   border-radius: .3em;
   padding: .25rem;
@@ -20,10 +25,23 @@ h1 {
 }
 
 select {
-  margin-left: .5rem;
+  margin-top: .35rem;
+  margin-left: 1.12rem;
+  margin-right: 1.12rem;
+  border: 1px solid #333;
+  border-radius: .3em;
+  padding: .17rem;
+  width: 7.8em;
 }
 
 .equals {
-  font-weight: bold;
-  font-size: 2rem;
+  display: inline-block;
+  font-size: 1.5rem;
+}
+
+.rectangle {
+  display: inline-block;
+  width: 100px;
+  height: 100px;
+  background: rgba(153, 235, 255, 0.459);
 }
